@@ -1,0 +1,22 @@
+# docker-compose で使用するバージョンを定義
+version: '3.9'
+
+services:
+  # 職業訓練校で使用するpostgresqlの環境構築ファイル
+  postgres_db:
+    image: postgres:${POSTGRES_VERSION}
+    container_name: ${CONTAINER_NAME}
+    # ポートの設定
+    ports:
+      - "5432:5432"
+    restart: always
+    # 環境変数を設定
+    environment:
+      - POSTGRES_USER=${USER_NAME}
+      - POSTGRES_PASSWORD=${USER_PASS}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - db_vol:/var/lib/postgresql/data
+
+volumes:
+  db_vol:
